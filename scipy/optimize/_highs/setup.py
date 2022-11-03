@@ -18,6 +18,10 @@ def pre_build_hook(build_ext, ext):
     if std_flag is not None:
         ext.extra_compile_args.append(std_flag)
 
+    args = ext.extra_compile_args
+    args.append('-latomic')
+    ext.extra_link_args.append('-latomic')
+
 
 def basiclu_pre_build_hook(build_clib, build_info):
     from scipy._build_utils.compiler_helper import get_c_std_flag
@@ -139,6 +143,7 @@ def configuration(parent_package='', top_path=None):
         define_macros=DEFINE_MACROS,
         undef_macros=UNDEF_MACROS,
         depends=["setup.py"] + basiclu_sources + highs_sources + ipx_sources,
+        extra_link_args=['-latomic', ],
     )
     # Add c++11/14 support:
     ext._pre_build_hook = pre_build_hook

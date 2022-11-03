@@ -57,6 +57,7 @@ npymath_lib = cc.find_library('npymath', dirs: npymath_path)
 npyrandom_path = incdir_numpy / '..' / '..' / 'random' / 'lib'
 # Note: `required: false` can be removed once numpy 1.19 is the minimum version
 npyrandom_lib = cc.find_library('npyrandom', dirs: npyrandom_path, required: false)
+dep_atomic = cc.find_library('atomic')
 
 # pybind11 include directory - needed in several submodules
 incdir_pybind11 = run_command(py3,
